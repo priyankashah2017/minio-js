@@ -294,6 +294,9 @@ export function parseListObjects(xml) {
   xmlobj = xmlobj.ListBucketResult
   if (xmlobj.IsTruncated) result.isTruncated = xmlobj.IsTruncated
   if (xmlobj.Contents) {
+    if(!(Array.isArray(xmlobj.Contents))){
+      xmlobj.Contents = [xmlobj.Contents];
+    }
     xmlobj.Contents.forEach(content => {
       var name = toArray(content.Key)[0]
       var lastModified = new Date(toArray(content.LastModified)[0])
